@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.wkq.file.FileSelectorActivity
 import com.wkq.file.util.FilePickerResult
@@ -30,6 +31,9 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == 10010&&resultCode==10011) {
             var data = data!!.getSerializableExtra(FilePickerResult.RESULT) as FilePickerResult
             Log.e("选中个数:", data.fileList.size.toString())
+            if (data.fileList.size>0){
+                Toast.makeText(this,data.fileList.get(0).name,Toast.LENGTH_LONG).show()
+            }
         }
     }
 }
