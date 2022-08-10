@@ -1,0 +1,10 @@
+<resources>
+    <string name="permission_write_storage_checker">应用程序需要获取存储权限，否则无法正常使用存储功能</string>
+    <string name="empty_directory">暂无文件</string>
+    <string name="max_file_count">最多只能选择9个文件</string>
+    <string name="max_file_size">文件太大无法选择</string>
+    <string name="min_file_size">文件为空无法选择</string>
+    <string name="file_not_found">文件暂时无法发送，可能已经被删除</string>
+    <string name="select_no_file">请选择需要发送的文件</string>
+    <string name="create_card_name_limit_toast">在本群的昵称最多%1$d个字</string>
+</resources>
