@@ -20,7 +20,7 @@ class FileSelector() {
     private var maxFileSize = Constant.FILE_MAX_SIZE
     private var maxVideoSize = Constant.VIDEO_MAX_SIZE
     private var maxNum = Constant.MAX_NUM
-    private var type:String = Constant.TYPE
+    private var typeList = ArrayList<String>()
 
     companion object {
         fun builder(): FileSelectorBulider {
@@ -58,8 +58,9 @@ class FileSelector() {
         /**
          * type 格式 .apk .jpeg
          */
-        fun setFileType(type: String): FileSelectorBulider {
-            fileSelector.type = type
+        fun setFileType(type: ArrayList<String>): FileSelectorBulider {
+            if (type==null)return this
+            fileSelector.typeList = type
             return this
         }
 
@@ -78,7 +79,11 @@ class FileSelector() {
         intent.putExtra(Constant.EXTRA_MAX_FILE_SIZE, maxFileSize)
         intent.putExtra(Constant.EXTRA_MAX_VIDEO_SIZE, maxVideoSize)
         intent.putExtra(Constant.EXTRA_MAX_IMAGE_SIZE, maxImagSize)
-        intent.putExtra(Constant.EXTRA_SELECT_TYPE, type)
+        intent.putExtra(Constant.SELECT_MAX_FILE_COUNT, maxNum)
+        if (typeList.size==0){
+            typeList.add(Constant.TYPE)
+        }
+        intent.putExtra(Constant.EXTRA_SELECT_TYPE, typeList)
         intent.putExtra(Constant.EXTRA_RESULT_CODE, resultCode)
         mContext.startActivityForResult(intent, requestCode)
     }

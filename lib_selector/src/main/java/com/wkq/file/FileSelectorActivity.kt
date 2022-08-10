@@ -15,6 +15,7 @@ import com.wu.base.util.PermissionChecker
 import com.wu.base.util.StatusBarUtil
 import java.io.File
 import java.util.*
+import kotlin.collections.ArrayList
 
 class FileSelectorActivity : AppCompatActivity() {
     //读取权限的Code
@@ -31,7 +32,7 @@ class FileSelectorActivity : AppCompatActivity() {
     var selectFiles = ArrayList<File>()
 
     //类型
-    var type = "All"
+    var fileTypes = ArrayList<String>()
 
     //最大选中个数
     var maxCount = 0
@@ -44,7 +45,7 @@ class FileSelectorActivity : AppCompatActivity() {
         )
         initView()
         if (initPermission()) {
-            if (type.equals(Constant.TYPE)) {
+            if (fileTypes.contains(Constant.TYPE)) {
                 loadFile(getRootFile()!!)
             } else {
                 processFileType()
@@ -61,7 +62,8 @@ class FileSelectorActivity : AppCompatActivity() {
         var maxImagSize =
             intent.getLongExtra(Constant.EXTRA_MAX_IMAGE_SIZE, Constant.IMAGE_MAX_SIZE)
         //类型
-        type = intent.getStringExtra(Constant.EXTRA_SELECT_TYPE) ?: Constant.TYPE
+        fileTypes =
+            intent.getStringArrayListExtra(Constant.EXTRA_SELECT_TYPE) ?: ArrayList<String>()
         //最大选择个数
         maxCount = intent.getIntExtra(Constant.SELECT_MAX_FILE_COUNT, Constant.MAX_NUM)
         resultCode = intent.getIntExtra(Constant.EXTRA_RESULT_CODE, Constant.MAX_NUM)
@@ -71,7 +73,7 @@ class FileSelectorActivity : AppCompatActivity() {
         FilesUtil.maxVideoSize = maxVideoSize
         FilesUtil.maxImageSize = maxImagSize
 
-        mAdapter = FileSelectorAdapter(this)
+        mAdapter = FileSelectorAdapter(this, maxCount)
         binding!!.rvContent.layoutManager = LinearLayoutManager(this)
         binding!!.rvContent.adapter = mAdapter
         binding!!.title.text = "手机存储"
@@ -86,7 +88,13 @@ class FileSelectorActivity : AppCompatActivity() {
 
             override fun onFileItemClick(selects: ArrayList<File>?) {
                 var cur = selects!!.size
-                binding!!.send.text = "(发送$cur/$maxCount)"
+                binding!!.send.text = "发送($cur/$maxCount)"
+                if (cur > 0) {
+                    binding!!.send.visibility = View.VISIBLE
+                } else {
+                    binding!!.send.visibility = View.GONE
+                }
+
                 selectFiles = selects
             }
         })
@@ -135,7 +143,6 @@ class FileSelectorActivity : AppCompatActivity() {
             mAdapter!!.removeAllItems()
             mAdapter!!.addItems(datas)
             binding!!.path.text = String.format("%s 个文件", datas.size)
-            binding!!.send.visibility = View.VISIBLE
         } catch (e: Exception) {
         }
 
@@ -146,7 +153,7 @@ class FileSelectorActivity : AppCompatActivity() {
      */
     private fun processFileType() {
 
-        var datas = FilePickerUtils.getFileByType(this, arrayOf(type))
+        var datas = FilePickerUtils.getFileByType(this, fileTypes.toTypedArray())
         if (datas.size > 0) {
             showEmpty(false)
         } else {
@@ -158,7 +165,6 @@ class FileSelectorActivity : AppCompatActivity() {
             mAdapter!!.removeAllItems()
             mAdapter!!.addItems(datas)
             binding!!.path.text = String.format("%s 个文件", datas.size)
-            binding!!.send.visibility = View.VISIBLE
         } catch (e: Exception) {
         }
     }
@@ -220,7 +226,7 @@ class FileSelectorActivity : AppCompatActivity() {
                 finish()
             } else if (hasPermission) {
 
-                if (type.equals(Constant.TYPE)) {
+                if (fileTypes.contains(Constant.TYPE)) {
                     loadFile(getRootFile()!!)
                 } else {
                     processFileType()
@@ -233,7 +239,7 @@ class FileSelectorActivity : AppCompatActivity() {
     //处理
     override fun onBackPressed() {
         //自定义类型直接关闭
-        if (!type.equals(Constant.TYPE)) {
+        if (!fileTypes.contains(Constant.TYPE)) {
             super.onBackPressed()
             return
         }

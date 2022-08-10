@@ -11,6 +11,7 @@ import com.wkq.file.adapter.BaseRecyclerAdapter
 import com.wkq.file.databinding.ItemFileBinding
 import com.wkq.file.util.FilePickerUtils
 import com.wkq.file.util.FilesUtil
+import com.wu.base.util.AlertUtil
 import java.io.File
 
 
@@ -25,10 +26,11 @@ import java.io.File
  *
  */
 
-class FileSelectorAdapter(mContext: Context) : BaseRecyclerAdapter<File>(mContext) {
+class FileSelectorAdapter(mContext: Context, maxNum: Int = 9) : BaseRecyclerAdapter<File>(mContext) {
 
     //上下文
     var mContext = mContext
+    var maxNum=maxNum
 
     // 固定条目的位置
     //内容数据
@@ -81,12 +83,20 @@ class FileSelectorAdapter(mContext: Context) : BaseRecyclerAdapter<File>(mContex
 
     private val selectFileList = ArrayList<File>()
     private fun processFileClick(file: File, binding: ItemFileBinding) {
+
         if (!binding!!.checkbox.isChecked && !containsFile(file)) {
-            if (FilesUtil.checkFileSize(mContext, file.length(), file.name)) {
-                binding!!.checkbox.isChecked = true
-                selectFileList.add(file)
-                if (mListener != null) mListener!!.onFileItemClick(selectFileList)
+
+            if (selectFileList.size < maxNum){
+                if (FilesUtil.checkFileSize(mContext, file.length(), file.name)) {
+                    binding!!.checkbox.isChecked = true
+                    selectFileList.add(file)
+                    if (mListener != null) mListener!!.onFileItemClick(selectFileList)
+                }
+            }else{
+                AlertUtil.showDeftToast(mContext, String.format("最多只能选择%s个文件",maxNum))
+
             }
+
         } else {
             binding!!.checkbox.isChecked = false
             selectFileList.remove(file)

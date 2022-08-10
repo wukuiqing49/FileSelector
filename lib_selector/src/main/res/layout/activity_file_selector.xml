@@ -50,15 +50,21 @@
             </LinearLayout>
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/send"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:layout_marginRight="15dp"
+                android:background="@drawable/bg_finish_done"
+                android:gravity="center"
+                android:paddingLeft="12dp"
+                android:paddingTop="5dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="5dp"
                 android:singleLine="true"
                 android:text="发送"
-                android:textColor="@color/color_13cc0c"
-                android:textSize="17sp" />
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -95,14 +101,14 @@
 
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/bottomLayout"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:background="@color/black"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:id="@+id/selectView"

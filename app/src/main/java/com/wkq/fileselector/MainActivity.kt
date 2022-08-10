@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity() {
             FileSelector.builder().bulid().startActivity(this, 10010,10011)
         }
         binding.btFileType.setOnClickListener {
-            FileSelector.builder().setFileType(".apk").setMaxNum(2).bulid().startActivity(this, 10010,10011)
+            var types= arrayListOf<String>(".apk",".pdf")
+            FileSelector.builder().setFileType(types).setMaxNum(2).bulid().startActivity(this, 10010,10011)
 
         }
     }
