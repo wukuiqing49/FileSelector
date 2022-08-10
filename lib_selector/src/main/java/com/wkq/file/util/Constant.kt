@@ -13,8 +13,6 @@ package com.wkq.file.util
 object Constant {
     //最大个数
     const val SELECT_MAX_FILE_COUNT = "MAX_FILE_COUNT"
-
-    const val EXTRA_START_DIRECTORY = "START_DIRECTORY"
     //文件大小限制
     const val EXTRA_MAX_FILE_SIZE = "MAX_FILE_SIZE"
     const val EXTRA_MAX_VIDEO_SIZE = "MAX_VIDEO_SIZE"
@@ -23,7 +21,7 @@ object Constant {
     const val EXTRA_SELECT_TYPE = "TYPE"
     const val EXTRA_RESULT_CODE = "RESULT_CODE"
 
-
+    //全部
     const val TYPE :String= "ALL"
 
 
@@ -37,6 +35,7 @@ object Constant {
     const val VIDEO_MAX_SIZE: Long = 100 * 1024 * 1024
     //最大个数
     const val MAX_NUM: Int = 9
+    //结果的code
     const val RESULT_CODE: Int = 10011
 
 }

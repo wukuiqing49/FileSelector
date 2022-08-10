@@ -17,6 +17,12 @@ import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
+/**
+ * 文件选择的页面
+ *
+ * 支持指定类型和全部类型选择
+ */
+
 class FileSelectorActivity : AppCompatActivity() {
     //读取权限的Code
     private val REQUEST_CODE_WRITE_STORAGE = 0x1001

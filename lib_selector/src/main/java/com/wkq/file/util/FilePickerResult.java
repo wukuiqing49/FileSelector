@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 选择结果结果
+ */
 public class FilePickerResult implements Serializable {
     public static final String RESULT = "result";
 

@@ -18,6 +18,10 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * 选择的文件工具类
+ */
+
 public class FilePickerUtils {
     /**
      * 根据文件名字获取文件的图标

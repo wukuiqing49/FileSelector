@@ -7,6 +7,9 @@ import java.io.File;
 import java.util.Comparator;
 import java.util.Locale;
 
+/**
+ * 文件 排序 文字 文件夹比较
+ */
 public class FilesListComparator implements Comparator<File> {
     @Override
     @IntRange(from = -1, to = 1)
