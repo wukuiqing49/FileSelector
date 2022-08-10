@@ -26,7 +26,6 @@ import kotlin.collections.ArrayList
 class FileSelectorActivity : AppCompatActivity() {
     //读取权限的Code
     private val REQUEST_CODE_WRITE_STORAGE = 0x1001
-    private val REQUEST_CODE_SYS_RXTRA_FILE = 0x1002
 
     var binding: ActivityFileSelectorBinding? = null
 
@@ -35,14 +34,18 @@ class FileSelectorActivity : AppCompatActivity() {
 
     //当前的文件
     private var mCurrentDirectory: File? = null
+    //选中的集合
     var selectFiles = ArrayList<File>()
-
     //类型
     var fileTypes = ArrayList<String>()
 
     //最大选中个数
     var maxCount = 0
+    //结果码
     var resultCode = 10011
+    //最顶层的文件夹
+    private var topDirectory: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView<ActivityFileSelectorBinding>(
@@ -127,8 +130,7 @@ class FileSelectorActivity : AppCompatActivity() {
         return Environment.getRootDirectory()
     }
 
-    //最顶层的文件夹
-    private var topDirectory: String? = null
+
 
     //加载文件
     private fun loadFile(rootFile: File) {
