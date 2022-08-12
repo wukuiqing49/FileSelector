@@ -146,7 +146,6 @@ class FileSelectorActivity : AppCompatActivity() {
         var datas = listFils.toMutableList()
 
         try {
-
             Collections.sort<File>(datas, FilesListComparator())
             mAdapter!!.removeAllItems()
             mAdapter!!.addItems(datas)

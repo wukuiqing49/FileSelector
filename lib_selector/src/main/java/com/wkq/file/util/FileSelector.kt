@@ -32,16 +32,23 @@ class FileSelector() {
 
         private val fileSelector = FileSelector()
 
+        /**
+         * 最大图片限制
+         */
         fun setMaxImagSize(maxImagSize: Long): FileSelectorBulider {
             fileSelector.maxImagSize = maxImagSize
             return this
         }
-
+        /**
+         * 最大文件限制
+         */
         fun setMaxFileSizee(maxFileSize: Long): FileSelectorBulider {
             fileSelector.maxFileSize = maxFileSize
             return this
         }
-
+        /**
+         * 最大视频限制
+         */
         fun setMaxVideoSize(maxVideoSize: Long): FileSelectorBulider {
             fileSelector.maxVideoSize = maxVideoSize
             return this

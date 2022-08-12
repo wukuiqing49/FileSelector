@@ -18,11 +18,18 @@ class MainActivity : AppCompatActivity() {
         var binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         binding.btFile.setOnClickListener {
-            FileSelector.builder().bulid().startActivity(this, 10010,10011)
+            //查询所有
+            FileSelector.builder()
+                    .bulid()
+                    .startActivity(this, 10010,10011)
         }
         binding.btFileType.setOnClickListener {
-            var types= arrayListOf<String>(".apk",".pdf")
-            FileSelector.builder().setFileType(types).setMaxNum(2).bulid().startActivity(this, 10010,10011)
+            //按类型查询
+            var types= arrayListOf<String>(".apk",".jpeg")
+            FileSelector.builder()
+                    .setFileType(types)
+                    .setMaxNum(2).bulid()
+                    .startActivity(this, 10010,10011)
 
         }
     }
