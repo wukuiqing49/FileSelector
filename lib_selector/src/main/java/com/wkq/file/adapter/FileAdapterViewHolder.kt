@@ -1,4 +1,4 @@
-package com.wkq.snaphelper
+package com.wkq.file.adapter
 
 import android.view.View
 import androidx.databinding.ViewDataBinding

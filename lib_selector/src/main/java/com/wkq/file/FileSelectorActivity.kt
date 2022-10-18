@@ -4,15 +4,13 @@ import android.Manifest
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.wkq.file.adapter.FileSelectorAdapter
 import com.wkq.file.databinding.ActivityFileSelectorBinding
 import com.wkq.file.util.*
-import com.wkq.snaphelper.FileSelectorAdapter
-import com.wu.base.util.AlertUtil
-import com.wu.base.util.PermissionChecker
-import com.wu.base.util.StatusBarUtil
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
@@ -49,8 +47,7 @@ class FileSelectorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView<ActivityFileSelectorBinding>(
-            this,
-            R.layout.activity_file_selector
+            this, R.layout.activity_file_selector
         )
         initView()
         if (initPermission()) {
@@ -64,7 +61,7 @@ class FileSelectorActivity : AppCompatActivity() {
 
 
     private fun initView() {
-        StatusBarUtil.setColor(this, resources.getColor(R.color.color_282828), 0)
+        ThemeUtil.setColor(this, resources.getColor(R.color.color_282828), 0)
         var maxFileSize = intent.getLongExtra(Constant.EXTRA_MAX_FILE_SIZE, Constant.FILE_MAX_SIZE)
         var maxVideoSize =
             intent.getLongExtra(Constant.EXTRA_MAX_VIDEO_SIZE, Constant.VIDEO_MAX_SIZE)
@@ -110,7 +107,12 @@ class FileSelectorActivity : AppCompatActivity() {
         binding!!.send.setOnClickListener {
 
             if (selectFiles == null || selectFiles.size <= 0) {
-                AlertUtil.showDeftToast(this, getString(R.string.select_no_file))
+
+
+                Toast.makeText(
+                    this, this.getString(R.string.select_no_file), Toast.LENGTH_SHORT
+                ).show()
+
                 return@setOnClickListener
             }
             val intent = intent
@@ -191,7 +193,7 @@ class FileSelectorActivity : AppCompatActivity() {
     }
 
     private fun initPermission(): Boolean {
-        return PermissionChecker.checkPermissions(
+        return PermissionUtil.checkPermissions(
             this,
             arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
             REQUEST_CODE_WRITE_STORAGE,
@@ -207,13 +209,11 @@ class FileSelectorActivity : AppCompatActivity() {
 
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_WRITE_STORAGE) {
-            val hasPermission = PermissionChecker.onRequestPermissionsResult(
+            val hasPermission = PermissionUtil.onRequestPermissionsResult(
                 this,
                 requestCode,
                 permissions,
@@ -221,7 +221,7 @@ class FileSelectorActivity : AppCompatActivity() {
                 true,
                 R.string.permission_write_storage_checker
             )[0]
-            val isNeverAsk = PermissionChecker.onRequestPermissionsResult(
+            val isNeverAsk = PermissionUtil.onRequestPermissionsResult(
                 this,
                 requestCode,
                 permissions,
@@ -256,5 +256,8 @@ class FileSelectorActivity : AppCompatActivity() {
             loadFile(mCurrentDirectory!!.parentFile)
         }
     }
+
+
+
 
 }

@@ -1,17 +1,16 @@
-package com.wkq.snaphelper
+package com.wkq.file.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.wkq.file.R
-import com.wkq.file.adapter.BaseRecyclerAdapter
 import com.wkq.file.databinding.ItemFileBinding
 import com.wkq.file.util.FilePickerUtils
 import com.wkq.file.util.FilesUtil
-import com.wu.base.util.AlertUtil
 import java.io.File
 
 
@@ -36,10 +35,7 @@ class FileSelectorAdapter(mContext: Context, maxNum: Int = 9) : BaseRecyclerAdap
     //内容数据
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FileAdapterViewHolder {
         var binding = DataBindingUtil.inflate<ItemFileBinding>(
-            LayoutInflater.from(mContext),
-            R.layout.item_file,
-            parent,
-            false
+            LayoutInflater.from(mContext), R.layout.item_file, parent, false
         )
         var holder = FileAdapterViewHolder(binding.root)
         holder.setDataBinding(binding)
@@ -60,9 +56,7 @@ class FileSelectorAdapter(mContext: Context, maxNum: Int = 9) : BaseRecyclerAdap
         //设置图标
         binding.icon.setImageDrawable(
             FilePickerUtils.getDrawable(
-                mContext,
-                file.isDirectory,
-                file.name
+                mContext, file.isDirectory, file.name
             )
         )
         //设置文件名
@@ -93,7 +87,10 @@ class FileSelectorAdapter(mContext: Context, maxNum: Int = 9) : BaseRecyclerAdap
                     if (mListener != null) mListener!!.onFileItemClick(selectFileList)
                 }
             }else{
-                AlertUtil.showDeftToast(mContext, String.format("最多只能选择%s个文件",maxNum))
+
+                Toast.makeText(
+                    mContext, String.format("最多只能选择%s个文件", maxNum), Toast.LENGTH_SHORT
+                ).show()
 
             }
 

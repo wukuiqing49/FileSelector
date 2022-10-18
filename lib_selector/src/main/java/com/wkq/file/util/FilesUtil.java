@@ -6,12 +6,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
 
 import com.wkq.file.R;
-import com.wu.base.util.AlertUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -55,14 +55,16 @@ public class FilesUtil {
 
     public static boolean checkFileSize(Context mContext, long fileSize, String fileName) {
         if (fileSize <= 0) {
-            AlertUtil.showDeftToast(mContext, mContext.getString(R.string.min_file_size));
+            Toast.makeText(mContext,mContext.getString(R.string.min_file_size),Toast.LENGTH_SHORT).show();
+
             return false;
         }
         boolean canSelect = canSelect(fileSize, fileName);
         if (canSelect) {
             return true;
         } else {
-            AlertUtil.showDeftToast(mContext, mContext.getString(R.string.max_file_size));
+            Toast.makeText(mContext,mContext.getString(R.string.max_file_size),Toast.LENGTH_SHORT).show();
+
             return false;
         }
     }

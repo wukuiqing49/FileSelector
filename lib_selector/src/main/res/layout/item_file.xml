@@ -70,7 +70,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:background="@color/colorDivider2" />
+            android:background="@color/color_f2f2ff2" />
 
     </RelativeLayout>
 

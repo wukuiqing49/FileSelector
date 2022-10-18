@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="color_13cc0c">#ff13cc0c</color>
     <color name="color_282828">#282828</color>
+    <color name="colorDivider">#c3c3c3</color>
+    <color name="color_dialog_btn">#282828</color>
+    <color name="color_ffa300">#1AAD19</color>
+    <color name="transparent">#00000000</color>
+    <color name="color_f2f2ff2">#f2f2f2</color>
 </resources>
