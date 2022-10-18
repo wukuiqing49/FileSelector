@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         var binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+
         binding.btFile.setOnClickListener {
             //查询所有
             FileSelector.builder()
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btFileType.setOnClickListener {
             //按类型查询
-            var types= arrayListOf<String>(".apk",".jpeg")
+            var types= arrayListOf<String>(".docx",".doc")
             FileSelector.builder()
                     .setFileType(types)
                     .setMaxNum(2).bulid()
